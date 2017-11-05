@@ -17,9 +17,9 @@ public class Arrow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		this.permTTL = 1f;
+		this.permTTL = 5f;
 		this.lit = false;
-		this.lightProb = .3f;
+		this.lightProb = .01f;
 		this.currTTL = 0;
 		this.gameManager = GameObject.Find ("GameManager");
 		this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
@@ -46,9 +46,11 @@ public class Arrow : MonoBehaviour {
 		else if (lit && this.currTTL > 0) {
 			if (Input.GetKeyDown (code)) {
 				gameManager.GetComponent<GameManager> ().score++;
-				lit = false;
-				permTTL -= .01f;
+				this.lit = false;
+				this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
+				permTTL -= .05f;
 				currTTL = 0;
+				this.lightProb += .001f;
 			}
 		} 
 
@@ -57,8 +59,9 @@ public class Arrow : MonoBehaviour {
 			gameManager.GetComponent<GameManager> ().lives--;
 			this.lit = false;
 			this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
-			permTTL -= .01f;
+			permTTL -= .1f;
 			currTTL = 0;
+			Debug.Log (code);
 		}
 	}
 
