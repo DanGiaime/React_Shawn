@@ -27,43 +27,45 @@ public class Arrow : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		currTTL -= Time.deltaTime;
+		if (gameManager.GetComponent<GameManager> ().lives > 0) {
+			currTTL -= Time.deltaTime;
 
-		//Not lit, check if should light
-		if (!this.lit) {
-			float shouldLight = Random.Range (0f, 1f);
-			if (shouldLight < this.lightProb) {
-				this.lit = true;
-				this.currTTL = permTTL;
-				this.GetComponent<SpriteRenderer> ().sprite = litSprite;
-			}
-			if (Input.GetKeyDown (code)) {
+			//Not lit, check if should light
+			if (!this.lit) {
+				float shouldLight = Random.Range (0f, 1f);
+				if (shouldLight < this.lightProb) {
+					this.lit = true;
+					this.currTTL = permTTL;
+					this.GetComponent<SpriteRenderer> ().sprite = litSprite;
+				}
+				if (Input.GetKeyDown (code)) {
+					gameManager.GetComponent<GameManager> ().lives--;
+					Debug.Log ("LIVES: " + gameManager.GetComponent<GameManager> ().lives);
+
+				}
+			} 
+
+			//lit, check if clicked correctly
+			else if (lit && this.currTTL > 0) {
+				if (Input.GetKeyDown (code)) {
+					gameManager.GetComponent<GameManager> ().score++;
+					this.lit = false;
+					this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
+					permTTL -= .05f;
+					currTTL = 0;
+					//this.lightProb += .001f;
+					Debug.Log (gameManager.GetComponent<GameManager> ().score);
+				}
+			} 
+
+			//Missed, sucks, kill em.
+			else if (lit && this.currTTL < 0) {
 				gameManager.GetComponent<GameManager> ().lives--;
-				Debug.Log ("LIVES: " + gameManager.GetComponent<GameManager> ().lives);
-
-			}
-		} 
-
-		//lit, check if clicked correctly
-		else if (lit && this.currTTL > 0) {
-			if (Input.GetKeyDown (code)) {
-				gameManager.GetComponent<GameManager> ().score++;
 				this.lit = false;
 				this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
-				permTTL -= .05f;
+				permTTL -= .1f;
 				currTTL = 0;
-				//this.lightProb += .001f;
-				Debug.Log (gameManager.GetComponent<GameManager> ().score);
 			}
-		} 
-
-		//Missed, sucks, kill em.
-		else if (lit && this.currTTL < 0) {
-			gameManager.GetComponent<GameManager> ().lives--;
-			this.lit = false;
-			this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
-			permTTL -= .1f;
-			currTTL = 0;
 		}
 	}
 

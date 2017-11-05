@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour {
 		width = height * mainCamera.aspect;
 
 		this.score = 0;
-		this.lives = 0;
+		this.lives = 5;
 
 		//make arrow objects
 		//GameObject left = Instantiate (leftArrow, transform);
