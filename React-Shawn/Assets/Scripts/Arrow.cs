@@ -8,6 +8,8 @@ public class Arrow : MonoBehaviour {
 	public float lightProb;
 	public KeyCode code;
 	public GameObject gameManager;
+	public Sprite litSprite;
+	public Sprite darkSprite;
 
 	//Tiem until dark
 	public float currTTL;
@@ -19,7 +21,8 @@ public class Arrow : MonoBehaviour {
 		this.lit = false;
 		this.lightProb = .3f;
 		this.currTTL = 0;
-		this.gameManager = GameObject.Find ("gameManager");
+		this.gameManager = GameObject.Find ("GameManager");
+		this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
 	}
 	
 	// Update is called once per frame
@@ -32,6 +35,7 @@ public class Arrow : MonoBehaviour {
 			if (shouldLight < this.lightProb) {
 				this.lit = true;
 				this.currTTL = permTTL;
+				this.GetComponent<SpriteRenderer> ().sprite = litSprite;
 			}
 			if (Input.GetKeyDown (code)) {
 				gameManager.GetComponent<GameManager> ().lives--;
@@ -52,6 +56,7 @@ public class Arrow : MonoBehaviour {
 		else if (lit && this.currTTL < 0) {
 			gameManager.GetComponent<GameManager> ().lives--;
 			this.lit = false;
+			this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
 			permTTL -= .01f;
 			currTTL = 0;
 		}
