@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 
 	public float score;
 	public int lives;
+	public AudioClip CLICK;
+	public AudioClip BOOM;
 
 	// references
 	public GameObject leftArrow;
@@ -26,14 +28,14 @@ public class GameManager : MonoBehaviour {
 		width = height * mainCamera.aspect;
 
 		this.score = 0;
-		this.lives = 5;
+		this.lives = 0;
+
 
 		//make arrow objects
 		//GameObject left = Instantiate (leftArrow, transform);
 		GameObject left = Instantiate (leftArrow, new Vector3(-width/6, 0, 0), Quaternion.Euler(0,0,0));
 		Arrow leftA = left.GetComponent<Arrow> ();
 		leftA.code = KeyCode.LeftArrow;
-
 
 		//GameObject right = Instantiate (rightArrow, transform);
 		GameObject right = Instantiate (rightArrow, new Vector3(width/6, 0, 0), Quaternion.Euler(0,0,0));

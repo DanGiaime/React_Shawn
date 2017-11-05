@@ -1,10 +1,17 @@
 fileFormatVersion: 2
 guid: a1266d7859a8a4aa18ba37649bee8804
-timeCreated: 1509862004
+timeCreated: 1509864393
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - CLICK: {fileID: 8300000, guid: b5e45bc306050482eb8bed132e4a8055, type: 3}
+  - BOOM: {fileID: 8300000, guid: 3390730a61b07496dbe3e04e794cb8d9, type: 3}
+  - leftArrow: {instanceID: 0}
+  - rightArrow: {instanceID: 0}
+  - upArrow: {instanceID: 0}
+  - downArrow: {instanceID: 0}
+  - mainCamera: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
