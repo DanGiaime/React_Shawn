@@ -39,6 +39,8 @@ public class Arrow : MonoBehaviour {
 			}
 			if (Input.GetKeyDown (code)) {
 				gameManager.GetComponent<GameManager> ().lives--;
+				Debug.Log ("LIVES: " + gameManager.GetComponent<GameManager> ().lives);
+
 			}
 		} 
 
@@ -50,7 +52,8 @@ public class Arrow : MonoBehaviour {
 				this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
 				permTTL -= .05f;
 				currTTL = 0;
-				this.lightProb += .001f;
+				//this.lightProb += .001f;
+				Debug.Log (gameManager.GetComponent<GameManager> ().score);
 			}
 		} 
 
@@ -61,7 +64,6 @@ public class Arrow : MonoBehaviour {
 			this.GetComponent<SpriteRenderer> ().sprite = darkSprite;
 			permTTL -= .1f;
 			currTTL = 0;
-			Debug.Log (code);
 		}
 	}
 
