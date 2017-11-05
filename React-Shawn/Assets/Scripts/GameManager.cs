@@ -20,15 +20,20 @@ public class GameManager : MonoBehaviour {
 	public float width;
 	public float height;
 
+	GUIStyle largeFont;
+
 	// Use this for initialization
 	void Start () {
-		
+
+		largeFont = new GUIStyle ();
+		largeFont.fontSize = 32;
+
 		// get the height and width of the screen;
 		height = 2f * mainCamera.orthographicSize;
 		width = height * mainCamera.aspect;
 
 		this.score = 0;
-		this.lives = 0;
+		this.lives = 5;
 
 
 		//make arrow objects
@@ -54,10 +59,14 @@ public class GameManager : MonoBehaviour {
 		Arrow downA = down.GetComponent<Arrow> ();
 		downA.code = KeyCode.DownArrow;
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
+		if (lives <= 0 && Input.GetKeyDown (KeyCode.R)) {
+			lives = 5;
+			score = 0;
+		}
 	}
 
 	// code for displaying score and lives
@@ -65,5 +74,12 @@ public class GameManager : MonoBehaviour {
 	{
 		GUI.Box (new Rect (4*Screen.width / 6, 0, 100, 50), "Score: " + score);
 		GUI.Box (new Rect (Screen.width/6, 0, 100, 50), "Lives: " + lives);
+
+		if (lives <= 0) 
+		{
+			
+			GUI.Label (new Rect (Screen.width/2 - 80, Screen.height/2 - 30, Screen.width, Screen.height), "Game Over!", largeFont);
+			GUI.Label (new Rect (Screen.width/2 - 130, Screen.height/2, Screen.width, Screen.height), "Press R to Restart!", largeFont);
+		}
 	}
 }
