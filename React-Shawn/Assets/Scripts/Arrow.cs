@@ -10,16 +10,20 @@ public class Arrow : MonoBehaviour {
 	public GameObject gameManager;
 
 	//Tiem until dark
-	public float ttl;
+	public float currTTL;
+	public float permTTL;
 
 	// Use this for initialization
 	void Start () {
+		this.permTTL = 1f;
 		this.lit = false;
 		this.gameManager = GameObject.Find ("gameManager");
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		currTTL -= Time.deltaTime;
+
 		if (!this.lit) {
 			float shouldLight = Random.Range (0f, 1f);
 			if (shouldLight < this.lightProb) {
@@ -28,14 +32,16 @@ public class Arrow : MonoBehaviour {
 			if (Input.GetKeyDown (code)) {
 				gameManager.GetComponent<GameManager> ().lives--;
 			}
-		} else if (lit && ttl > 0) {
+		} else if (lit && this.currTTL > 0) {
 			if (Input.GetKeyDown (code)) {
 				gameManager.GetComponent<GameManager> ().score++;
 				lit = false;
+				permTTL -= .01f;
 			}
-		} else if (lit && ttl < 0) {
+		} else if (lit && this.currTTL < 0) {
 			gameManager.GetComponent<GameManager> ().lives--;
 			this.lit = false;
+			permTTL -= .01f;
 		}
 	}
 
